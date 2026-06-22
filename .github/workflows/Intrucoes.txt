@@ -1,0 +1,20 @@
+USUARIO="SEU_USUARIO"
+TOKEN="SEU_TOKEN"
+REPO="nome-do-repositorio"
+
+curl -u $USUARIO:$TOKEN https://api.github.com/user/repos -d "{\"name\":\"$REPO\",\"public\":true}"
+
+mkdir $REPO
+cd $REPO
+
+git init
+
+echo "Este arquivo contém instruções do projeto. Deve existir antes da pipeline." > instrucoes.txt
+
+git add instrucoes.txt
+git commit -m "Adiciona instrucoes.txt"
+
+git branch -M main
+git remote add origin https://github.com/$USUARIO/$REPO.git
+
+git push -u origin main
